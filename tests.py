@@ -179,19 +179,19 @@ def test_12():
     assert preguntas.pregunta_12() == {"A": 177, "B": 187, "C": 114, "D": 136, "E": 324}
 
 
-test = {
-    "01": test_01,
-    "02": test_02,
-    "03": test_03,
-    "04": test_04,
-    "05": test_05,
-    "06": test_06,
-    "07": test_07,
-    "08": test_08,
-    "09": test_09,
-    "10": test_10,
-    "11": test_11,
-    "12": test_12,
-}[sys.argv[1]]
+# test = {
+#     "01": test_01,
+#     "02": test_02,
+#     "03": test_03,
+#     "04": test_04,
+#     "05": test_05,
+#     "06": test_06,
+#     "07": test_07,
+#     "08": test_08,
+#     "09": test_09,
+#     "10": test_10,
+#     "11": test_11,
+#     "12": test_12,
+# }[sys.argv[1]]
 
-test()
+# test()

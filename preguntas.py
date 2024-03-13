@@ -21,7 +21,19 @@ def pregunta_01():
     214
 
     """
-    return
+    # def suma_segunda_columna(data.csv):
+
+    with open("data.csv") as data:
+        data = data.readlines()
+
+    suma = 0
+    for line in data:  # divide por linea
+        line = line.split()  # divide por palabras
+        suma += int(line[1])  # suma la segunda línea y lo convierte en entero
+    return suma
+
+
+print(pregunta_01())
 
 
 def pregunta_02():
@@ -39,7 +51,29 @@ def pregunta_02():
     ]
 
     """
-    return
+    with open("data.csv") as data:
+        data = data.readlines()
+
+    new_sequence = []
+    diccionario = {}
+    sequence = []
+
+    for line in data:  # divide por línea
+        line = line.split()  # divide por palabras
+        letra = line[0]  # el primer elemento lo guarda en vble letra
+
+        new_sequence.append((letra, 1))  # Agrega la tupla en la lista new_sequence
+    sorted_sequence = sorted(new_sequence, key=lambda x: x[0])  # ordena las tuplas
+    for clave, valor in sorted_sequence:
+        diccionario[clave] = (
+            diccionario.get(clave, 0) + 1
+        )  # creamos diccionario y suma si existen
+    for clave, valor in diccionario.items():
+        sequence.append((clave, valor))
+    return sequence  # retorna la lista de tuplas
+
+
+print(pregunta_02())
 
 
 def pregunta_03():
@@ -57,7 +91,33 @@ def pregunta_03():
     ]
 
     """
-    return
+
+    with open("data.csv") as data:
+        data = data.readlines()
+
+    new_sequence = []
+    diccionario = {}
+    sequence = []
+
+    for line in data:  # divide por línea
+        line = line.split()  # divide por palabras
+        letra = line[0]  # el primer elemento lo guarda en vble letra
+        valor = int(
+            line[1]
+        )  # el segundo elemento, guarda en vble valor y lo convierte en entero
+
+        new_sequence.append((letra, valor))  # Agrega la tupla en la lista new_sequence
+    sorted_sequence = sorted(new_sequence, key=lambda x: x[0])  # ordena las tuplas
+    for clave, valor in sorted_sequence:
+        diccionario[clave] = (
+            diccionario.get(clave, 0) + valor
+        )  # creamos diccionario y suma si existen
+    for clave, valor in diccionario.items():
+        sequence.append((clave, valor))
+    return sequence  # retorna la lista de tuplas
+
+
+print(pregunta_03())
 
 
 def pregunta_04():
@@ -82,7 +142,30 @@ def pregunta_04():
     ]
 
     """
-    return
+    with open("data.csv") as data:
+        data = data.readlines()
+
+    new_sequence = []
+    diccionario = {}
+    sequence = []
+
+    for line in data:  # divide por linea
+        line = line.split()  # divide por palabras
+        fecha = line[2]  # el tercer elemento lo guarda en vble fecha
+        fecha = fecha.split(sep="-")[1]
+
+        new_sequence.append((fecha, 1))  # Agrega la dupla en la lista new_sequence
+    for fecha, valor in new_sequence:
+        diccionario[fecha] = diccionario.get(fecha, 0) + int(valor)
+        # creamos diccionario y suma si existen
+    for fecha, valor in diccionario.items():
+        sequence.append((fecha, valor))
+    sorted_sequence = sorted(sequence, key=lambda x: x[0])  # ordena las tuplas
+
+    return sorted_sequence  # retorna la lista de tuplas
+
+
+print(pregunta_04())
 
 
 def pregunta_05():
@@ -100,7 +183,31 @@ def pregunta_05():
     ]
 
     """
-    return
+    with open("data.csv") as data:
+        data = data.readlines()
+
+    diccionarios = {}
+
+    for line in data:  # divide por línea
+
+        line = line.split()  # divide por lista de palabras
+        letra = line[0]  # el primer elemento lo guarda en vble letra
+        numero = int(line[1])  # el segundo elemento lo guarda en vble numero
+
+        if letra in diccionarios:
+            diccionarios[letra] = (
+                max(diccionarios[letra][0], numero),
+                min(diccionarios[letra][1], numero),
+            )
+        else:
+            diccionarios[letra] = (numero, numero)
+
+    diccionarios = sorted(diccionarios.items(), key=lambda x: x[0])
+    diccionarios = [(clave, valores[0], valores[1]) for clave, valores in diccionarios]
+    return diccionarios
+
+
+print(pregunta_05())
 
 
 def pregunta_06():
@@ -125,7 +232,35 @@ def pregunta_06():
     ]
 
     """
-    return
+    with open("data.csv") as data:
+        data = data.readlines()
+
+    diccionario = {}
+
+    for line in data:  # divide por linea
+
+        line = line.split()  # divide por lista de palabras
+        columna = line[4]  # el quinto elemento lo guarda en vble columna
+        columna = columna.split(",")
+
+        for clave_valor in columna:
+            clave, valor = clave_valor.split(":")
+            valor = int(valor)
+            if clave in diccionario:
+
+                diccionario[clave] = (
+                    min(diccionario[clave][0], valor),
+                    max(diccionario[clave][1], valor),
+                )
+            else:
+                diccionario[clave] = (valor, valor)
+
+    diccionario = sorted(diccionario.items(), key=lambda x: x[0])
+    diccionario = [(clave, valores[0], valores[1]) for clave, valores in diccionario]
+    return diccionario
+
+
+print(pregunta_06())
 
 
 def pregunta_07():
@@ -149,7 +284,28 @@ def pregunta_07():
     ]
 
     """
-    return
+    with open("data.csv") as data:
+        data = data.readlines()
+
+    diccionario = {}
+
+    for line in data:  # divide por línea
+
+        line = line.split()  # divide por lista de palabras
+        columnaNumeros = int(line[1])
+        columnaLetras = line[0]  # el primer elemento lo guarda en vble columnaletras
+
+        if columnaNumeros in diccionario:
+            diccionario[columnaNumeros].append(columnaLetras)
+        else:
+            diccionario[columnaNumeros] = [columnaLetras]
+
+    diccionario = sorted(diccionario.items(), key=lambda x: x[0])
+
+    return diccionario
+
+
+print(pregunta_07())
 
 
 def pregunta_08():
@@ -174,7 +330,31 @@ def pregunta_08():
     ]
 
     """
-    return
+    with open("data.csv") as data:
+        data = data.readlines()
+
+    diccionario = {}
+
+    for line in data:  # divide por línea
+
+        line = line.split()  # divide por lista de palabras
+        columnaNumeros = line[1]
+        columnaLetras = line[0]  # el primer elemento lo guarda en vble columnaletras
+
+        if columnaNumeros in diccionario:
+
+            if columnaLetras not in diccionario[columnaNumeros]:
+                diccionario[columnaNumeros].append(columnaLetras)
+
+        else:
+            diccionario[columnaNumeros] = [columnaLetras]
+    diccionario = sorted(diccionario.items(), key=lambda x: x[0])
+
+    diccionario = [(int(clave), sorted(valor)) for clave, valor in diccionario]
+    return diccionario
+
+
+print(pregunta_08())
 
 
 def pregunta_09():
@@ -197,7 +377,32 @@ def pregunta_09():
     }
 
     """
-    return
+
+    with open("data.csv") as data:
+        data = data.readlines()
+
+    diccionario = {}
+
+    for line in data:  # divide por línea
+
+        line = line.split()  # divide por lista de palabras
+        columna = line[4]
+        columna = columna.split(",")  # separa por comas
+
+        for clave_valor in columna:
+            clave, valor = clave_valor.split(":")
+
+            if clave in diccionario:
+                diccionario[clave] += 1
+            else:
+                diccionario[clave] = 1
+
+    diccionario = sorted(diccionario.items(), key=lambda x: x[0])
+    diccionario = dict(diccionario)
+    return diccionario
+
+
+print(pregunta_09())
 
 
 def pregunta_10():
@@ -218,7 +423,26 @@ def pregunta_10():
 
 
     """
-    return
+
+    with open("data.csv") as data:
+        data = data.readlines()
+
+    lista = []
+
+    for line in data:  # divide por línea
+
+        line = line.split()
+        letra = line[0]
+        valor1 = line[3]
+        valor2 = line[4]
+        tupla = (letra, len(valor1.split(",")), len(valor2.split(",")))
+        lista.append(tupla)
+    return lista
+
+
+print(pregunta_10())
+
+pregunta_10()
 
 
 def pregunta_11():
@@ -239,11 +463,32 @@ def pregunta_11():
 
 
     """
-    return
+    with open("data.csv") as data:
+        data = data.readlines()
+
+    diccionario = {}
+
+    for line in data:  # divide por línea
+        line = line.split()  # separa la vble line
+        columna3 = line[3].split(",")
+        valor = int(line[1])
+
+        for letra in columna3:
+            if letra in diccionario:
+                diccionario[letra] += valor
+            else:
+                diccionario[letra] = valor
+    diccionario = sorted(diccionario.items(), key=lambda x: x[0])
+
+    return dict(diccionario)
+
+
+print(pregunta_11())
 
 
 def pregunta_12():
     """
+
     Genere un diccionario que contengan como clave la columna 1 y como valor la suma de
     los valores de la columna 5 sobre todo el archivo.
 
@@ -257,4 +502,25 @@ def pregunta_12():
     }
 
     """
-    return
+    diccionario = {}
+    with open("./data.csv") as data:
+        data = data.readlines()
+
+    for line in data:
+        linea = line.split()
+        columna1 = linea[0]
+        columna5 = linea[4].split(",")
+        suma = 0
+        for clave_valor in columna5:
+            clave, valor = clave_valor.split(":")
+            suma += int(valor)
+
+        if columna1 in diccionario:
+            diccionario[columna1] += suma
+        else:
+            diccionario[columna1] = suma
+    diccionario = sorted(diccionario.items(), key=lambda x: x[0])
+    return dict(diccionario)
+
+
+print(pregunta_12())
